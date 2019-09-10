@@ -74,4 +74,7 @@ JSONAPI::Rails.configure do |config|
   #
   # # Uncomment the following to disable logging.
   # config.logger = Logger.new('/dev/null')
+  #
+  # # Set custom renderer. Should be a subclass of JSONAPI::Serializable::Renderer
+  # config.renderer = CustomRendererClass
 end

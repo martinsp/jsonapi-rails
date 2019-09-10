@@ -50,10 +50,12 @@ module JSONAPI
       def register_renderers
         ActiveSupport.on_load(:action_controller) do
           RENDERERS.each do |name, renderer|
+            if (renderer_klass = JSONAPI::Rails.config[:renderer])
+              renderer = SuccessRenderer.new(renderer_klass.new)
+            end
             ::ActionController::Renderers.add(name) do |resources, options|
               # Renderer proc is evaluated in the controller context.
               headers['Content-Type'] = Mime[:jsonapi].to_s
-
               ActiveSupport::Notifications.instrument('render.jsonapi-rails',
                                                       resources: resources,
                                                       options: options) do

@@ -52,7 +52,8 @@ module JSONAPI
         jsonapi_meta:    DEFAULT_JSONAPI_META,
         jsonapi_object:  DEFAULT_JSONAPI_OBJECT,
         jsonapi_pagination: DEFAULT_JSONAPI_PAGINATION,
-        logger: DEFAULT_LOGGER
+        logger: DEFAULT_LOGGER,
+        renderer: nil,
       }.freeze
 
       def configure
