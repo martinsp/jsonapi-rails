@@ -51,7 +51,11 @@ module JSONAPI
         ActiveSupport.on_load(:action_controller) do
           RENDERERS.each do |name, renderer|
             if (renderer_klass = JSONAPI::Rails.config[:renderer])
-              renderer = SuccessRenderer.new(renderer_klass.new)
+              renderer = if name == :jsonapi_errors
+                ErrorsRenderer.new(renderer_klass.new)
+              else
+                SuccessRenderer.new(renderer_klass.new)
+              end
             end
             ::ActionController::Renderers.add(name) do |resources, options|
               # Renderer proc is evaluated in the controller context.
